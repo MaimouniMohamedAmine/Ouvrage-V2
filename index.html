@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ouvrage v2</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        
+        
+        <div class="container">
+              
+            <form id="form" class="form">
+                <h2> Chercher un livre</h2>
+                <div class="formControl">
+                    <label>.:Titre:.</label>
+                    <input type="text" placeholder="Titre" id="titre">
+                    <small></small>
+                </div>
+                <div class="formControl">
+                    <label>.:Auteur:.</label>
+                    <input type="text" placeholder="Auteur" id="auteur">
+                    <small></small>
+                </div>
+                <div class="email">
+                    <label>.:Email de l'auteur:.</label>
+                    <input type="text" placeholder="Email de l'auteur" id="email">
+                    <small id="small2"></small>
+                </div>
+                <div class="Prix">
+                    <label>.:Prix:.</label>
+                    <input type="text" placeholder="Prix" id="prix">
+                    <p></p>
+                </div>
+                <div class="formControl">
+                    <label>.:Date de publication:.</label>
+                    <input type="date" id="date">
+                    <small></small>
+                </div>
+                <div class="formControl">
+                    <label>.:Langue:.</label>
+                    <select id="Langues">
+                        <option disabled selected hidden value="">Sélectionnez une Langue</option>
+                        <option value="Anglais">Anglais</option>
+                        <option value="Arabe">Arabe</option>
+                        <option value="Arabe">Espagnole</option>
+                        <option value="Françai">Françai</option>
+                    </select>
+                    <small id="smol"></small>
+                </div>
+                <div class="type">
+                    <label>.:Type:.</label><br>
+                    <input type="radio" name="choix" class="check" value="Roman">
+                    <label for="Roman">Roman</label>
+                    <input type="radio" name="choix" class="check" value="Essai">
+                    <label for="Essai">Essai</label>
+                    <input type="radio" name="choix" class="check" value="Bande-Dessinée">
+                    <label for="Bande-Dessinée">Bande-Dessinée</label>
+                    <small id="small"></small>
+                </div>
+                <input type="Submit" name="Submit" value="Soumettre" id="Soumettre">
+            </form>
+            <table border="1" id="table" >
+                <thead>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Email de l'auteur</th>
+                    <th>Prix</th>
+                    <th>Date de publication</th>
+                    <th>Langue</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+
+                </tbo>
+                <tr>
+                    
+                </tr>
+            </table>
+        </div>
+
+        <script src="main.js"></script>
+    </body>
+</html>

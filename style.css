@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Playfair+Display:ital@1&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: 'Playfair Display', serif;
+    
+}
+input,select{
+    display:block;
+}
+.type input,label{
+display: inline-block;
+}
+label{
+    text-shadow:2px 0px 0px rgba(31, 31, 31, 0.493);
+}
+option{
+    color: black;
+}
+#date{
+    color: black;
+}
+
+#Soumettre{
+    background-color: #c55518;
+    text-decoration: none;
+    padding:5px 10px;
+    border-radius: 16px;
+    margin-left: 20%;
+    margin-top: 15px;
+    border:2px white;
+
+}
+img{
+    /* height: 100%; */
+    float: left;
+    width: 80%;
+    background-size:cover;
+    z-index: 1;
+}
+body{
+    display: flex;
+    background-image: url(../library.jpg);
+    justify-content: center;
+}
+/*****************************/
+h2 {
+    top: 0%;
+    text-shadow:2px 0px 0px rgba(31, 31, 31, 0.493);
+
+}
+
+form {
+    background-color: #c2a476c4;
+    padding: 20px 1px 20px 28%;
+    border-radius: 10%;    
+    margin-top: 10%;
+
+}
+table {
+    text-shadow:2px 0px 0px rgba(31, 31, 31, 0.493);
+    border-radius: 7px;
+    margin-top: 8%;
+    float: right;
+    /* width: 82%; */
+    border: 2px solid #ffffff;
+    background-color: #c2a476c4;
+}
