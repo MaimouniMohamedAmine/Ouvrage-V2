@@ -42,7 +42,7 @@ img{
 }
 body{
     display: flex;
-    background-image: url(../library.jpg);
+    /* background-image: url(../library.jpg); */
     justify-content: center;
 }
 /*****************************/
@@ -60,11 +60,34 @@ form {
 
 }
 table {
-    text-shadow:2px 0px 0px rgba(31, 31, 31, 0.493);
+    text-align: center;
+    text-shadow: 2px 0px 0px rgb(31 31 31 / 14%);
     border-radius: 7px;
     margin-top: 8%;
     float: right;
-    /* width: 82%; */
+    margin-left: 4%;
+    width: 90%;
     border: 2px solid #ffffff;
     background-color: #c2a476c4;
+}
+button {
+    display: flex;
+    float: left;
+    margin-top: 7%;
+    margin-left: 26%;
+    padding: 4px 0%;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    background: #c55518;
+    border: 3px solid #efeae1;
+    border-radius: 65vh 223px;
+    box-shadow: 3px 5px 0px #ffb54a99;
+    width: 50%;
+}
+#print p {
+    margin-left: 19%;
+    padding-top: 10vh;
+    display: flex;
+    float: left;
 }

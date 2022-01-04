@@ -249,15 +249,14 @@
         table.innerHTML = "";
 
         // Ajouter l'entete
-        table.innerHTML = `<th>Titre</th>
-                                <th>Auteur</th>
-                                <th>Email de l'auteur</th>
-                                <th>Prix</th>
-                                <th>Date de publication</th>
-                                <th>Langue</th>
-                                <th>Type</th>
-                                <th>Actions</th>
-                                `;
+        table.innerHTML =  `<th>Titre</th>
+                            <th>Auteur</th>
+                            <th>Email de l'auteur</th>
+                            <th>Prix</th>
+                            <th>Date de publication</th>
+                            <th>Langue</th>
+                            <th>Type</th>
+                            <th>Actions</th>`;
             
         // Charger les données
         for(i=0; i<listeOuvrages.length; i++){
@@ -285,17 +284,21 @@
     // Delete function v2;
     function Delete(r) {
         if(confirm('Êtes-vous sûre de supprimer cette entrée?')){
+            
+            // var i = r.parentElement.parentElement.style.color = "red";
+            // document.getElementById("table").deleteRow(this.i);
+            // var thisRow = document.getElementById("deleteBtn").parentElement.parentElement.rowIndex
             //var i = r.parentNode.parentNode.rowIndex-1;
             // (i-1,1)
-            var i = r.parentElement.parentElement.rowIndex;
-            // var i = r.parentElement.parentElement.style.color = "red";
-            listeOuvrages.splice(i-1,1);
-            // document.getElementById("table").deleteRow(this.i);
 
-            // var thisRow = document.getElementById("deleteBtn").parentElement.parentElement.rowIndex
-            // thisRow.remove(this.thisRow);
+            var i = r.parentElement.parentElement.rowIndex;
             
+            listeOuvrages.splice(i-1,1);
+
+        // thisRow.remove(this.thisRow);
+
             trier();
+
             localStorage.setItem("liste", JSON.stringify(listeOuvrages));
             
             charger();
@@ -386,7 +389,7 @@
         //         row.cells[4].innerHTML = document.getElementById("date").value;
         //         row.cells[5].innerHTML = document.getElementById("Langues").value;
                
-                //Nada helped me understand localStorage
+                //Nada has helped me understand localStorage
                
                 // var listeTemp = "";
                 // for(i=0;i<type.length;i++){
