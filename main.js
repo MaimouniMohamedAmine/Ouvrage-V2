@@ -1,4 +1,5 @@
     var table = document.getElementById("table");
+    var tbody = document.getElementById("tbody");
     var titre = document.getElementById("titre");
     var auteur = document.getElementById("auteur");
     var email = document.getElementById("email");
@@ -13,10 +14,12 @@
     var form = document.getElementById("form");
     var inputs = document.getElementsByTagName("input");
     var listeOuvrages = [];
+    var detailOuvrage = document.getElementById("dtls")
+    var printBtn = document.getElementById("print")
 
 
     class Ouvrage{
-        constructor(Titre,Auteur,Email,Prix,Date,Type,Langue){
+        constructor(Titre,Auteur,Email,Prix,Date,Langue,Type){
             this.titre = Titre;
             this.auteur = Auteur;
             this.email = Email;
@@ -26,19 +29,38 @@
             this.type = Type;
         }
 
-        détailOuvrage(){
-            return "L'ouvrage est un "+this.type+" en langue "+this.langue+", écrit par "+this.auteur+" et publié le "+this.date+". Le prix de "+this.titre+" est de "+this.prix+"."
+        detailOuvrage(){
+            return "L'ouvrage "+this.titre+" est un "+this.type+" en langue "+this.langue+", écrit par "+this.auteur+" et publié le "+this.date+". Le prix de "+this.titre+" est de "+this.prix+"MAD."
 
         }
     }
+
+    // charger la table HTML depuis le localStorage
+    // // getItem
+        var listeTemp = JSON.parse(localStorage.getItem("liste"));
+        if (listeTemp != null){
+        
+            for(i = 0 ; i < listeTemp.length ; i++){
+                var infoOuvrages = new Ouvrage(listeTemp[i].titre, listeTemp[i].auteur, listeTemp[i].email, listeTemp[i].prix, listeTemp[i].date, listeTemp[i].langue, listeTemp[i].type)
+                listeOuvrages.push(infoOuvrages);
+            }
+        }
+
     // Trier la liste listeOuvrages
         function trier(){
             listeOuvrages.sort(function(a,b){
                 if(a.titre < b.titre){
                     return -1;
                 }
+                else if(a.titre > b.titre){
+                    return 1;
+                }
+                else
+                    return 0;
             })
         }
+
+
         function validateForm(e){
     
     e.preventDefault();
@@ -148,65 +170,42 @@
         }
         
         //Local storage
-        listeTemp = JSON.parse(localStorage.getItem("liste"));
-        if (listeTemp != null){
+        // listeTemp = JSON.parse(localStorage.getItem("liste"));
+        // if (listeTemp != null){
             
-            for(i=0;i<listeTemp.length;i++){
-                var infoOuvrages = new books(listeTemp[i].titre, listeTemp[i].auteur, listeTemp[i].email, listeTemp[i].price, listeTemp[i].date, listeTemp[i].language, list_temp[i].type)
-                listeTemp.push(infoOuvrages);
-            }
-        }
+        //     for(i=0;i<listeTemp.length;i++){
+        //         var infoOuvrages = new Ouvrage(listeTemp[i].titre, listeTemp[i].auteur, listeTemp[i].email, listeTemp[i].price, listeTemp[i].date, listeTemp[i].language, listeTemp[i].type)
+        //         listeTemp.push(Ouvrage);
+        //     }
+        // }
 
         ///////////-Tableau/insertCell-///////////////
         if(validationErrors == 0){
             var index = select.selectedIndex;
             var unObjet = new Ouvrage(titre.value,auteur.value,email.value,prix.value,date.value,select.options[index].value,document.querySelector("input[name='choix']:checked").value);
+            detailOuvrage.innerHTML = unObjet.detailOuvrage();
             listeOuvrages.push(unObjet);
             localStorage.setItem("liste", JSON.stringify(listeOuvrages));
             trier();
+            //Ceci est inclut dans la fonction charger().
+            // // Vider la table HTML
+            // table.innerHTML = "";
+            
+            // // Charger les titres
+            // table.innerHTML = `<th>Titre</th>
+            //                     <th>Auteur</th>
+            //                     <th>Email de l'auteur</th>
+            //                     <th>Prix</th>
+            //                     <th>Date de publication</th>
+            //                     <th>Type</th>
+            //                     <th>Langue</th>
+            //                     <th>Actions</th>
+            //                     `;
+
+                                
             charger();
-            // Vider la table HTML
-            table.innerHTML = "";
-            // Charger les titres
-            table.innerHTML = `<th>Titre</th>
-                                <th>Auteur</th>
-                                <th>Email de l'auteur</th>
-                                <th>Prix</th>
-                                <th>Date de publication</th>
-                                <th>Type</th>
-                                <th>Langue</th>
-                                <th>Actions</th>
-                                `;
 
             // Charger la table HTML depuis listeOuvrages
-
-        function charger() {
-            
-            for(i=0; i<listeOuvrages.length; i++){
-                var newRow = table.insertRow(-1);
-                var cell1 = newRow.insertCell(0);
-                var cell2 = newRow.insertCell(1);
-                var cell3 = newRow.insertCell(2);
-                var cell4 = newRow.insertCell(3);
-                var cell5 = newRow.insertCell(4);
-                var cell6 = newRow.insertCell(5);
-                var cell7 = newRow.insertCell(6);
-                // var cell8 = newRow.insertCell(7);
-
-                cell1.innerHTML = listeOuvrages[i].titre;
-                cell2.innerHTML = listeOuvrages[i].auteur;
-                cell3.innerHTML = listeOuvrages[i].email;
-                cell4.innerHTML = listeOuvrages[i].prix;
-                cell5.innerHTML = listeOuvrages[i].date;
-                cell6.innerHTML = listeOuvrages[i].langue;
-                cell7.innerHTML = listeOuvrages[i].type;
-                newRow.insertCell(-1).innerHTML = "<input onClick='Edit(this)' type='button' value='Modifier'><input type='button' value='Supprimer' onClick = 'Delete(this)'>";
-            }
-        }
-        charger();        
-
-
-                // tu continues ainsi pour les autres cellules
             
             // var newRow = table.insertRow(-1);
             // var cell1 = newRow.insertCell(0);
@@ -218,7 +217,7 @@
             // var cell7 = newRow.insertCell(6);
             // var cell8 = newRow.insertCell(7);
             
-            var cellType="";
+            // var cellType="";
 
                 // for(i=0;i<type.length;i++)
                 // {
@@ -244,74 +243,178 @@
     
         }
     }
-    
-        function Delete(td){
-            if (confirm('Êtes-vous sûre de supprimer cette entrée?')) {
-            row = td.parentElement.parentElement;
-            document.getElementById("table").deleteRow(row.rowIndex);
 
-        }}
+    function charger() {
+        // Vider la table
+        table.innerHTML = "";
 
-        // Edit function;
-        function Edit(r){
-            var i = r.parentNode.parentNode.rowIndex;
+        // Ajouter l'entete
+        table.innerHTML = `<th>Titre</th>
+                                <th>Auteur</th>
+                                <th>Email de l'auteur</th>
+                                <th>Prix</th>
+                                <th>Date de publication</th>
+                                <th>Langue</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                                `;
+            
+        // Charger les données
+        for(i=0; i<listeOuvrages.length; i++){
+            var newRow = table.insertRow();
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            var cell6 = newRow.insertCell(5);
+            var cell7 = newRow.insertCell(6);
+            // var cell8 = newRow.insertCell(7);
+
+            cell1.innerHTML = listeOuvrages[i].titre;
+            cell2.innerHTML = listeOuvrages[i].auteur;
+            cell3.innerHTML = listeOuvrages[i].email;
+            cell4.innerHTML = listeOuvrages[i].prix;
+            cell5.innerHTML = listeOuvrages[i].date;
+            cell6.innerHTML = listeOuvrages[i].langue;
+            cell7.innerHTML = listeOuvrages[i].type;
+            newRow.insertCell(-1).innerHTML = "<input onClick='Edit(this)' type='button' value='Modifier'><input id='deleteBtn' type='button' value='Supprimer' onClick = 'Delete(this)'>";
+        }
+    } 
+
+    // Delete function v2;
+    function Delete(r) {
+        if(confirm('Êtes-vous sûre de supprimer cette entrée?')){
+            //var i = r.parentNode.parentNode.rowIndex-1;
+            // (i-1,1)
+            var i = r.parentElement.parentElement.rowIndex;
+            // var i = r.parentElement.parentElement.style.color = "red";
+            listeOuvrages.splice(i-1,1);
+            // document.getElementById("table").deleteRow(this.i);
+
+            // var thisRow = document.getElementById("deleteBtn").parentElement.parentElement.rowIndex
+            // thisRow.remove(this.thisRow);
+            
+            trier();
+            localStorage.setItem("liste", JSON.stringify(listeOuvrages));
+            
+            charger();
+        }
+    }
+        // v1 function Delete(td){
+        //     if (confirm('Êtes-vous sûre de supprimer cette entrée?')) {
+        //     row = td.parentElement.parentElement;
+        //     document.getElementById("table").deleteRow(row.rowIndex);
+
+        // }}
+
+        // Edit function v2;
+        function editRow(r) {
+            var i = r.parentNode.parentNode.rowIndex-1;
+            var delDisable = r.nextElementSibling;
             var row = table.rows[i];
-            if(r.value == "Modifier"){
-                inputs[0].value = row.cells[0].innerHTML;
-                inputs[1].value = row.cells[1].innerHTML;
-                inputs[2].value = row.cells[2].innerHTML;
-                inputs[3].value = row.cells[3].innerHTML;
-                inputs[4].value = row.cells[4].innerHTML;
-
-                // Language
-                if(row.cells[5].innerHTML == "Anglais"){
-                    select.selectedIndex = 1;
-                }
-                else if(row.cells[5].innerHTML == "Anglais"){
-                    select.selectedIndex = 2;
-                }
-                else{
-                    select.selectedIndex = 3;
-                }
-
+            if (r.value == "Modifier") {
+                
                 // Type
-                for(var i=0;i<type.length;i++){
-                    if(row.cells[6].innerHTML==type[i].value){
-                    type[i].checked = true;
+                titre.value = row.cells[0].innerHTML;
+                auteur.value = row.cells[1].innerHTML;
+                email.value = row.cells[2].innerHTML;
+                prix.value = row.cells[3].innerHTML;
+                date.value = row.cells[4].innerHTML;
+                langue.value = row.cells[5].innerHTML;
+                
+                for (var i = 0; i < type.length; i++) {
+                    if (row.cells[6].innerHTML == type[i].value) {
+                        type[i].checked = true;
                     }
                 }
-                r.value="Sauvegarder"
-                document.getElementById("Soumettre").setAttribute("disabled","true");
+                r.value = "Sauvegarder";
+                delDisable.setAttribute("disabled", "true");
+                document.getElementById("Soumettre").setAttribute("disabled", "true");
             }
-            else{
-                row.cells[0].innerHTML = document.getElementById("titre").value;
-                row.cells[1].innerHTML = document.getElementById("auteur").value;
-                row.cells[2].innerHTML = document.getElementById("email").value;
-                row.cells[3].innerHTML = document.getElementById("prix").value;
-                row.cells[4].innerHTML = document.getElementById("date").value;
-                row.cells[5].innerHTML = document.getElementById("Langues").value;
+            else {
+                listeOuvrages[i].titre = titre.value;
+                listeOuvrages[i].auteur = auteur.value;
+                listeOuvrages[i].email = email.value;
+                listeOuvrages[i].prix = prix.value;
+                listeOuvrages[i].date = date.value;
+                listeOuvrages[i].langue = langue.value;
+                for (var k = 0; k < type.length; k++) {
+                    if (type[k].checked) {
+                        listeOuvrages[i].type = type[k].value;
+                    }
+                }
+            }
+            
+        }
+
+        // v1 function Edit(r){
+        //     var i = r.parentNode.parentNode.rowIndex;
+        //     var row = table.rows[i];
+        //     if(r.value == "Modifier"){
+        //         inputs[0].value = row.cells[0].innerHTML;
+        //         inputs[1].value = row.cells[1].innerHTML;
+        //         inputs[2].value = row.cells[2].innerHTML;
+        //         inputs[3].value = row.cells[3].innerHTML;
+        //         inputs[4].value = row.cells[4].innerHTML;
+
+        //         // Language
+        //         if(row.cells[5].innerHTML == "Anglais"){
+        //             select.selectedIndex = 1;
+        //         }
+        //         else if(row.cells[5].innerHTML == "Anglais"){
+        //             select.selectedIndex = 2;
+        //         }
+        //         else{
+        //             select.selectedIndex = 3;
+        //         }
+
+        //         // Type
+        //         for(var i=0;i<type.length;i++){
+        //             if(row.cells[6].innerHTML==type[i].value){
+        //             type[i].checked = true;
+        //             }
+        //         }
+        //         r.value="Sauvegarder"
+        //         document.getElementById("Soumettre").setAttribute("disabled","true");
+        //     }
+        //     else{
+        //         row.cells[0].innerHTML = document.getElementById("titre").value;
+        //         row.cells[1].innerHTML = document.getElementById("auteur").value;
+        //         row.cells[2].innerHTML = document.getElementById("email").value;
+        //         row.cells[3].innerHTML = document.getElementById("prix").value;
+        //         row.cells[4].innerHTML = document.getElementById("date").value;
+        //         row.cells[5].innerHTML = document.getElementById("Langues").value;
                
                 //Nada helped me understand localStorage
                
-                var listeTemp = "";
-                for(i=0;i<type.length;i++){
-                    if(type[i].checked){
-                        // row.cells[6]
-                        listeTemp = type[i].value;
-                    }
-                }
-                r.value = "Modifier";
-                document.getElementById("Soumettre").removeAttribute("disabled")
-                inputs[0].value=""
-                inputs[1].value=""
-                inputs[2].value=""
-                inputs[3].value=""
-                inputs[4].value=""
-                inputs[5].value=""
-                inputs[6].value=""
+                // var listeTemp = "";
+                // for(i=0;i<type.length;i++){
+                //     if(type[i].checked){
+                //         // row.cells[6]
+                //         listeTemp = type[i].value;
+                //     }
+                // }
+        //         r.value = "Modifier";
+        //         document.getElementById("Soumettre").removeAttribute("disabled")
+        //         inputs[0].value=""
+        //         inputs[1].value=""
+        //         inputs[2].value=""
+        //         inputs[3].value=""
+        //         inputs[4].value=""
+        //         inputs[5].value=""
+        //         inputs[6].value=""
 
-            }     }    
-        document.getElementsByTagName("form")[0].addEventListener("submit", validateForm);
-            // couldn't get it to work with the previous version
-            //I had to call the form with its TagName instead of its Id 
-            //Zoubair helped me to get it back   
+        //     } } 
+
+        form.addEventListener("submit", validateForm);
+        
+    //   Bouton imprimer
+    
+    function printBt(){
+        var tmpDiv = printBtn.innerHTML;
+        var tmpBody = document.body.innerHTML;
+        document.body.innerHTML = tmpDiv;
+        window.print();
+        document.body.innerHTML = tmpBody;
+    }
