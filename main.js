@@ -16,6 +16,7 @@
     var listeOuvrages = [];
     var detailOuvrage = document.getElementById("dtls")
     var printBtn = document.getElementById("print")
+    var subBtn = document.getElementById("Soumettre")
 
 
     class Ouvrage{
@@ -260,7 +261,7 @@
             
         // Charger les données
         for(i=0; i<listeOuvrages.length; i++){
-            var newRow = table.insertRow();
+            var newRow = table.insertRow();     //par default() ca marche comme dans insertRow(-1).
             var cell1 = newRow.insertCell(0);
             var cell2 = newRow.insertCell(1);
             var cell3 = newRow.insertCell(2);
@@ -298,6 +299,11 @@
         // thisRow.remove(this.thisRow);
 
             trier();
+           
+            // subBtn.addEventListener("onClick", function submitBTN(){
+            //     // console.log(true)
+            // //     subBtn.style.display = "none"
+            // // })
 
             localStorage.setItem("liste", JSON.stringify(listeOuvrages));
             
@@ -312,8 +318,8 @@
         // }}
 
         // Edit function v2;
-        function editRow(r) {
-            var i = r.parentNode.parentNode.rowIndex-1;
+        function Edit(r) {
+            var i = r.parentNode.parentNode.rowIndex;
             var delDisable = r.nextElementSibling;
             var row = table.rows[i];
             if (r.value == "Modifier") {
@@ -324,7 +330,7 @@
                 email.value = row.cells[2].innerHTML;
                 prix.value = row.cells[3].innerHTML;
                 date.value = row.cells[4].innerHTML;
-                langue.value = row.cells[5].innerHTML;
+                select.value = row.cells[5].innerHTML;
                 
                 for (var i = 0; i < type.length; i++) {
                     if (row.cells[6].innerHTML == type[i].value) {
@@ -333,7 +339,7 @@
                 }
                 r.value = "Sauvegarder";
                 delDisable.setAttribute("disabled", "true");
-                document.getElementById("Soumettre").setAttribute("disabled", "true");
+                // document.getElementById("Soumettre").setAttribute("disabled", "true");
             }
             else {
                 listeOuvrages[i].titre = titre.value;
@@ -341,12 +347,14 @@
                 listeOuvrages[i].email = email.value;
                 listeOuvrages[i].prix = prix.value;
                 listeOuvrages[i].date = date.value;
-                listeOuvrages[i].langue = langue.value;
+                listeOuvrages[i].langue = select.value;
                 for (var k = 0; k < type.length; k++) {
                     if (type[k].checked) {
                         listeOuvrages[i].type = type[k].value;
                     }
                 }
+                charger()
+            
             }
             
         }
@@ -411,6 +419,7 @@
         //     } } 
 
         form.addEventListener("submit", validateForm);
+                   
         
     //   Bouton imprimer
     
